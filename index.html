@@ -419,7 +419,19 @@
         </section>
 
     </main>
-
+  <!-- Info Modal - 高品質訊息提示視窗 (這是必須存在的 HTML 結構) -->
+    <div id="infoModal" class="modal-overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] opacity-0 pointer-events-none flex items-center justify-center p-6">
+        <div class="modal-content bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl p-10 text-center transform scale-90">
+            <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 mb-4">活動資訊</h3>
+            <p id="modalMessage" class="text-lg text-slate-600 mb-8 leading-relaxed"></p>
+            <button onclick="closeInfoModal()" class="w-full py-4 bg-slate-900 text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-colors shadow-lg">
+                我知道了
+            </button>
+        </div>
+    </div>
     <footer class="bg-white border-t border-slate-100 py-16 text-center">
         <div class="max-w-7xl mx-auto px-6">
             <p class="text-slate-400 text-lg font-medium">© 2026 龍穎扶輪社 公共形象委員會製作</p>
@@ -427,7 +439,39 @@
         </div>
     </footer>
 
+    <!-- JavaScript (這是負責執行彈出動作的腳本) -->
     <script>
+        // Modal 控制邏輯
+        function showInfoModal(message) {
+            const modal = document.getElementById('infoModal');
+            const messageEl = document.getElementById('modalMessage');
+            const content = modal.querySelector('.modal-content');
+            
+            if (modal && messageEl && content) {
+                messageEl.innerText = message;
+                modal.classList.remove('pointer-events-none');
+                modal.classList.add('opacity-100');
+                content.classList.remove('scale-90');
+                content.classList.add('scale-100');
+            }
+        }
+
+        function closeInfoModal() {
+            const modal = document.getElementById('infoModal');
+            const content = modal.querySelector('.modal-content');
+            
+            if (modal && content) {
+                modal.classList.add('opacity-0');
+                content.classList.remove('scale-100');
+                content.classList.add('scale-90');
+                
+                setTimeout(() => {
+                    modal.classList.add('pointer-events-none');
+                    modal.classList.remove('opacity-100');
+                }, 300);
+            }
+        }
+
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
@@ -441,10 +485,19 @@
                 });
             }
         }
+
+        // 點擊 Modal 背景也可關閉
+        const modalEl = document.getElementById('infoModal');
+        if (modalEl) {
+            modalEl.addEventListener('click', function(e) {
+                if (e.target === this) closeInfoModal();
+            });
+        }
     </script>
 </body>
 
 </html>
+
 
 
 
