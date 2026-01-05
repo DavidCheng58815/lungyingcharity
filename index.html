@@ -406,10 +406,12 @@
             <div class="max-w-4xl mx-auto px-6">
                 <h2 class="text-3xl md:text-5xl font-bold mb-10 italic tracking-wide leading-tight">服務在龍穎，感動在人心！</h2>
                 <div class="flex flex-col sm:flex-row justify-center gap-8 mt-16">
-                    <button class="px-12 py-5 bg-rose-600 hover:bg-rose-700 rounded-full text-xl font-bold transition-all shadow-xl shadow-rose-900/40">
+                    <!-- 期待 3/22 按鈕：改為觸發訊息視窗，未來拿到連結後可替換為 window.open('網址', '_blank') -->
+                    <button onclick="showInfoModal('報名表即將開放，敬請期待！')" class="px-12 py-5 bg-rose-600 hover:bg-rose-700 rounded-full text-xl font-bold transition-all shadow-xl shadow-rose-900/40">
                         <i class="fas fa-calendar-check mr-3"></i> 期待 3/22 的感動
                     </button>
-                    <button class="px-12 py-5 bg-amber-500 hover:bg-amber-600 rounded-full text-xl font-bold transition-all shadow-xl shadow-amber-900/40">
+                    <!-- 回看過去按鈕 -->
+                    <button onclick="window.open('https://www.youtube.com/shorts/sjq48OlIbFc', '_blank')" class="px-12 py-5 bg-amber-500 hover:bg-amber-600 rounded-full text-xl font-bold transition-all shadow-xl shadow-amber-900/40">
                         <i class="fas fa-history mr-3"></i> 回看過去的溫暖
                     </button>
                 </div>
@@ -420,7 +422,7 @@
 
     <footer class="bg-white border-t border-slate-100 py-16 text-center">
         <div class="max-w-7xl mx-auto px-6">
-            <p class="text-slate-400 text-lg font-medium">© 2026 龍穎扶輪社 公共形象委員會 - 大D 主委年度報告</p>
+            <p class="text-slate-400 text-lg font-medium">© 2026 龍穎扶輪社 公共形象委員會製作</p>
             <p class="text-slate-300 text-sm mt-4 italic">讓龍穎社的愛，被更多人聽見與看見</p>
         </div>
     </footer>
@@ -443,6 +445,7 @@
 </body>
 
 </html>
+
 
 
 
