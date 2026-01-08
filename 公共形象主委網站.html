@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025-26 龍穎扶輪社公共形象報告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .slide {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            padding: 2rem;
+            animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 內容卡片結構：旗艦穩定版 */
+        .content-card {
+            background: #ffffff;
+            border-radius: 4.5rem;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 94%;
+            padding: 4rem;
+            border-top: 16px solid #015491;
+            position: relative;
+            max-height: 92vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        .content-card::-webkit-scrollbar { display: none; }
+
+        /* Slogan 呼吸感優化：解決擁擠感的關鍵 */
+        .slogan-breathing {
+            line-height: 1.4;
+            letter-spacing: 0.08em; /* 增加字距營造高級感 */
+            word-break: keep-all;
+            white-space: nowrap; /* 確保單行呈現 */
+        }
+
+        /* 橘色標籤大氣化 */
+        .badge-amber {
+            color: #d97706;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+        }
+
+        .rotary-blue { color: #015491; }
+        .rotary-gold { color: #f7a81b; }
+        .bg-rotary-blue { background-color: #015491; }
+        .bg-rotary-gold { background-color: #f7a81b; }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 8px;
+            background-color: #f7a81b;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .slide-desc {
+            line-height: 1.8;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <div id="slide-container">
+        <!-- Slide 1: 封面 -->
+        <div class="slide active bg-rotary-blue text-white">
+            <div class="text-center">
+                <i class="fas fa-bullhorn text-9xl mb-10 rotary-gold shadow-2xl"></i>
+                <h1 class="text-6xl md:text-8xl font-black mb-10 slogan-breathing">2025-26 年度<br>公共形象職務報告</h1>
+                <div class="h-2 w-64 bg-rotary-gold mx-auto mb-12 rounded-full shadow-lg"></div>
+                <p class="text-4xl mb-4 font-bold tracking-[0.2em]">報告人：公共形象主委 大D</p>
+                <p class="text-2xl opacity-60 font-medium tracking-widest">龍穎扶輪社 | LungYing Rotary Club</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: 核心願景 - 優化為「單行」且增加「呼吸感」 -->
+        <div class="slide">
+            <div class="content-card text-center">
+                <div class="badge-amber">01. 核心願景</div>
+                <h3 class="text-4xl md:text-5xl lg:text-6xl font-black rotary-blue mb-16 slogan-breathing">從「默默耕耘」到「品牌說書人」</h3>
+                <p class="text-3xl text-gray-500 slide-desc max-w-5xl mx-auto px-10">我們不只是發文紀錄，更是在紀錄珍貴歷史，<br>傳遞 LungYing 人每一份最真實的感動</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: 角色定位 -->
+        <div class="slide">
+            <div class="content-card">
+                <div class="badge-amber text-center">我的角色定位</div>
+                <div class="grid grid-cols-3 gap-10">
+                    <div class="text-center p-10 bg-slate-50 rounded-[3.5rem] shadow-sm border-b-8 border-transparent hover:border-rotary-blue transition-all">
+                        <i class="fas fa-pen-nib text-6xl rotary-blue mb-8"></i>
+                        <h4 class="font-black text-3xl mb-6">紀錄者</h4>
+                        <p class="text-2xl text-gray-500 slide-desc">龍穎社故事的紀錄者<br>與精神傳承者</p>
+                    </div>
+                    <div class="text-center p-10 bg-slate-50 rounded-[3.5rem] shadow-md border-b-8 border-red-500">
+                        <i class="fas fa-heart text-6xl text-red-500 mb-8"></i>
+                        <h4 class="font-black text-3xl mb-6">熱情的延伸</h4>
+                        <p class="text-2xl text-gray-500 slide-desc">將公益熱忱轉化為<br>深遠的影響力</p>
+                    </div>
+                    <div class="text-center p-10 bg-slate-50 rounded-[3.5rem] shadow-sm border-b-8 border-transparent hover:border-rotary-gold transition-all">
+                        <i class="fas fa-shield-alt text-6xl rotary-gold mb-8"></i>
+                        <h4 class="font-black text-3xl mb-6">守護者</h4>
+                        <p class="text-2xl text-gray-500 slide-desc">塑造符合國際扶輪的<br>專業形象與溫度</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: 龍心穎手 -->
+        <div class="slide">
+            <div class="content-card">
+                <div class="flex items-center mb-12 border-b-4 pb-8 border-slate-100">
+                    <div class="bg-pink-500 text-white w-24 h-24 rounded-[2.5rem] flex items-center justify-center mr-10 shadow-xl">
+                        <i class="fas fa-child text-5xl"></i>
+                    </div>
+                    <h2 class="text-7xl font-black rotary-blue">龍心穎手：每月陪伴</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-10">
+                    <div class="bg-slate-50 p-12 rounded-[3.5rem] border-l-[16px] border-pink-500 shadow-sm">
+                        <h4 class="font-black text-4xl mb-6 text-pink-600">核心價值</h4>
+                        <p class="text-3xl text-gray-700 slide-desc">對關愛之家小朋友，我們給予最長期且穩定的守護</p>
+                    </div>
+                    <div class="bg-slate-50 p-12 rounded-[3.5rem] border-l-[16px] border-amber-500 shadow-sm">
+                        <h4 class="font-black text-4xl mb-6 text-amber-600">形象策略</h4>
+                        <p class="text-3xl text-gray-700 slide-desc">捕捉真摯互動瞬間，展現龍穎最溫柔的品牌力量</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: 龍穎善循 -->
+        <div class="slide">
+            <div class="content-card">
+                <div class="flex items-center mb-12 border-b-4 pb-8 border-slate-100">
+                    <div class="bg-blue-500 text-white w-24 h-24 rounded-[2.5rem] flex items-center justify-center mr-10 shadow-xl">
+                        <i class="fas fa-hand-holding-heart text-5xl"></i>
+                    </div>
+                    <h2 class="text-7xl font-black rotary-blue">龍穎善循：每月送暖</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-10">
+                    <div class="bg-slate-50 p-12 rounded-[3.5rem] border-l-[16px] border-blue-500 shadow-sm">
+                        <h4 class="font-black text-4xl mb-6 text-blue-600">核心價值</h4>
+                        <p class="text-3xl text-gray-700 slide-desc">走入北車遞送物資，我們始終站在人道關懷最前線</p>
+                    </div>
+                    <div class="bg-slate-50 p-12 rounded-[3.5rem] border-l-[16px] border-amber-500 shadow-sm">
+                        <h4 class="font-black text-4xl mb-6 text-amber-600">形象策略</h4>
+                        <p class="text-3xl text-gray-700 slide-desc">強調行動與對話，讓社會看見 LungYing 人的踏實感</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: 亮點回顧 -->
+        <div class="slide">
+            <div class="content-card">
+                <div class="badge-amber text-center">年度亮點活動回顧</div>
+                <div class="grid grid-cols-2 gap-12">
+                    <div class="bg-slate-50 p-14 rounded-[4rem] border-b-[12px] border-orange-400 text-center shadow-md">
+                        <i class="fas fa-dog text-7xl mb-10 text-orange-400"></i>
+                        <h3 class="font-black text-4xl mb-6">流浪動物之家</h3>
+                        <p class="text-2xl text-gray-500 slide-desc px-4">展現對生命的尊重與<br>多元服務的廣度</p>
+                    </div>
+                    <div class="bg-slate-50 p-14 rounded-[4rem] border-b-[12px] border-indigo-500 text-center shadow-md">
+                        <i class="fas fa-music text-7xl mb-10 text-indigo-500"></i>
+                        <h3 class="font-black text-4xl mb-6">年度公益音樂會</h3>
+                        <p class="text-2xl text-gray-500 slide-desc px-4">文化藝術與公益結合<br>建立高品質品牌形象</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: 3/22 旗艦計畫 -->
+        <div class="slide">
+            <div class="content-card text-center">
+                <div class="badge-amber">03. 年度旗艦計畫</div>
+                <h3 class="text-7xl md:text-8xl font-black rotary-blue mb-10 slogan-breathing">3/22 羅浮里義診</h3>
+                <div class="bg-red-50 p-12 rounded-[4rem] border-4 border-red-100 shadow-inner">
+                    <h4 class="text-5xl font-black text-red-600 mb-8">今年最重要的形象舞台</h4>
+                    <p class="text-4xl text-gray-700 mb-8 font-bold">地點：羅浮里辦公室（舒適寬敞空間）</p>
+                    <div class="h-1 w-48 bg-red-200 mx-auto mb-8 rounded-full"></div>
+                    <p class="text-3xl text-gray-800 font-black tracking-wider">影響力：區長號召三里里民，深度連結社區資源</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: 首部曲 -->
+        <div class="slide">
+            <div class="content-card text-center">
+                <div class="badge-amber">形象三部曲：首部曲</div>
+                <div class="inline-block bg-indigo-100 p-14 rounded-[3.5rem] mb-12 shadow-md text-indigo-600">
+                    <i class="fas fa-share-nodes text-8xl"></i>
+                </div>
+                <h3 class="text-7xl font-black rotary-blue mb-10">活動前：數位擴散</h3>
+                <p class="text-4xl text-gray-600 max-w-4xl mx-auto slide-desc">
+                    製作高品質預告圖文，透過行政管道轉發，<br>讓民眾在活動前就對龍穎社產生深刻認同
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 9: 二部曲 -->
+        <div class="slide">
+            <div class="content-card">
+                <div class="badge-amber text-center">形象三部曲：二部曲</div>
+                <div class="flex items-center mb-10 border-b-4 pb-6 border-slate-100">
+                    <div class="bg-rotary-blue text-white w-20 h-20 rounded-[1.5rem] flex items-center justify-center mr-8 shadow-xl">
+                        <i class="fas fa-video text-4xl"></i>
+                    </div>
+                    <h2 class="text-6xl font-black rotary-blue">活動中：沉浸式品牌體驗</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-8 mt-2">
+                    <div class="bg-slate-50 p-10 rounded-[3rem] shadow-sm border-b-8 border-slate-200">
+                        <h4 class="font-black text-3xl mb-5 rotary-blue italic">場域佈置</h4>
+                        <p class="text-2xl text-gray-600 slide-desc">利用舒適寬敞空間設置成果展現區，見證 LungYing 服務歷史</p>
+                    </div>
+                    <div class="bg-slate-50 p-10 rounded-[3rem] shadow-sm border-b-8 border-rotary-gold">
+                        <h4 class="font-black text-3xl mb-5 rotary-blue italic">統籌規劃</h4>
+                        <p class="text-2xl text-gray-600 slide-desc">由總召 Sardonna 與 大D 共同統籌規劃，精準捕捉感動特寫</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: 三部曲 -->
+        <div class="slide">
+            <div class="content-card text-center">
+                <div class="badge-amber">形象三部曲：三部曲</div>
+                <div class="bg-amber-50 p-14 rounded-[5.5rem] border-8 border-amber-100 relative">
+                    <i class="fas fa-film text-9xl rotary-blue mb-10"></i>
+                    <h3 class="text-7xl font-black rotary-blue mb-8">活動後：年度紀錄片</h3>
+                    <p class="text-4xl text-gray-700 slide-desc max-w-5xl mx-auto font-medium">
+                        將義診剪輯成年度代表性紀錄片與 Reels，<br>成為對外介紹與招募新社友的最佳金字招牌
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: 數位戰略 -->
+        <div class="slide">
+            <div class="content-card">
+                <div class="badge-amber text-center">04. 數位戰略</div>
+                <h3 class="text-8xl font-black rotary-blue text-center mb-14">建立「龍穎資產庫」</h3>
+                <div class="grid grid-cols-3 gap-8">
+                    <div class="bg-slate-800 text-white p-10 rounded-[3.5rem] text-center shadow-2xl">
+                        <i class="fas fa-database text-5xl mb-6 rotary-gold"></i>
+                        <h4 class="font-black text-3xl mb-4">系統化</h4>
+                        <p class="text-xl opacity-70">影像雲端分類存檔</p>
+                    </div>
+                    <div class="bg-slate-800 text-white p-10 rounded-[3.5rem] text-center shadow-2xl">
+                        <i class="fas fa-seedling text-5xl mb-6 rotary-gold"></i>
+                        <h4 class="font-black text-3xl mb-4">永續性</h4>
+                        <p class="text-xl opacity-70">高品質宣傳素材</p>
+                    </div>
+                    <div class="bg-slate-800 text-white p-10 rounded-[3.5rem] text-center shadow-2xl">
+                        <i class="fas fa-eye text-5xl mb-6 rotary-gold"></i>
+                        <h4 class="font-black text-3xl mb-4">影響力</h4>
+                        <p class="text-xl opacity-70">讓善舉皆有跡可循</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: AI 助手 -->
+        <div class="slide">
+            <div class="content-card">
+                <div class="badge-amber text-center">✨ 品牌助手</div>
+                <div class="grid grid-cols-2 gap-10">
+                    <div class="bg-slate-50 p-10 rounded-[4rem] border-4 border-slate-100 shadow-sm">
+                        <h4 class="font-black text-3xl mb-6 rotary-blue"><i class="fas fa-magic mr-4"></i>文案生成</h4>
+                        <textarea id="ai-input-post" class="w-full h-32 p-6 text-2xl border-4 rounded-3xl mb-6 outline-none focus:ring-8 focus:ring-amber-200" placeholder="義診感動故事..."></textarea>
+                        <button onclick="generatePost()" class="bg-rotary-blue text-white py-5 rounded-2xl text-2xl font-black w-full hover:bg-blue-900 transition-all">✨ 生成貼文</button>
+                    </div>
+                    <div class="bg-slate-50 p-10 rounded-[4rem] border-4 border-slate-100 shadow-sm">
+                        <h4 class="font-black text-3xl mb-6 rotary-blue"><i class="fas fa-bullseye mr-4"></i>創意口號</h4>
+                        <input id="ai-input-slogan" type="text" class="w-full p-6 text-2xl border-4 rounded-3xl mb-10 outline-none focus:ring-8 focus:ring-amber-200" placeholder="活動主題...">
+                        <button onclick="generateSlogans()" class="bg-amber-600 text-white py-5 rounded-2xl text-2xl font-black w-full hover:bg-amber-700 transition-all">✨ 生成口號</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: 總結 -->
+        <div class="slide">
+            <div class="content-card text-center">
+                <div class="badge-amber">05. 總結</div>
+                <h3 class="text-7xl font-black rotary-blue mb-16 slogan-breathing">人人都是品牌代言人</h3>
+                <div class="grid grid-cols-2 gap-10 text-left px-4">
+                    <div class="bg-slate-50 p-12 rounded-[4.5rem] border-b-[12px] border-rotary-blue shadow-sm">
+                        <i class="fas fa-user-check text-6xl rotary-blue mb-8"></i>
+                        <h4 class="font-black text-4xl mb-6">參與就是形象</h4>
+                        <p class="text-2xl text-gray-600 leading-relaxed">穿上社服，大D主委與您的笑容就是最棒的公關呈現</p>
+                    </div>
+                    <div class="bg-slate-50 p-12 rounded-[4.5rem] border-b-[12px] border-rotary-blue shadow-sm">
+                        <i class="fas fa-share-alt text-6xl rotary-blue mb-8"></i>
+                        <h4 class="font-black text-4xl mb-6">分享就是力量</h4>
+                        <p class="text-2xl text-gray-600 leading-relaxed">動動手指轉發貼文，讓親友一同為 LungYing 感到驕傲</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: 結束 - 改為「單行」且增加「呼吸感」 -->
+        <div class="slide bg-rotary-blue text-white">
+            <div class="text-center px-10">
+                <h2 class="text-5xl md:text-7xl lg:text-8xl font-black mb-16 italic slogan-breathing">服務在龍穎，感動在人心！</h2>
+                <div class="h-3 w-80 bg-rotary-gold mx-auto mb-16 rounded-full shadow-lg"></div>
+                <p class="text-5xl mb-24 font-bold tracking-[0.2em]">讓我們的行動，成為社區最美的風景</p>
+                <div class="text-3xl opacity-40 font-black uppercase tracking-[0.6em]">報告結束 謝謝聆聽</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-12 right-12 flex space-x-8 z-[101]">
+        <div onclick="prevSlide()" class="nav-btn bg-white w-20 h-20 rounded-full shadow-2xl flex items-center justify-center text-slate-800 text-4xl font-bold">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div onclick="nextSlide()" class="nav-btn bg-rotary-blue w-20 h-20 rounded-full shadow-2xl flex items-center justify-center text-white text-4xl font-bold">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </div>
+
+    <div class="fixed bottom-12 left-12 text-slate-400 font-black text-3xl z-[101]" id="page-num">1 / 14</div>
+    <div class="progress-bar" id="progress"></div>
+
+    <script>
+        const apiKey = "";
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progress = document.getElementById('progress');
+        const pageNum = document.getElementById('page-num');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) slide.classList.add('active');
+            });
+            const percent = ((currentSlide + 1) / slides.length) * 100;
+            progress.style.width = percent + '%';
+            pageNum.innerText = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlide(); } }
+        function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlide(); } }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            else if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        async function callGemini(prompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { 
+                    parts: [{ text: "你是扶輪社公共形象專家，撰寫感性有溫度的繁體中文文案。請勿使用標點符號。" }] 
+                }
+            };
+            try {
+                const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text;
+            } catch (e) { return "暫時無法連接 AI 助手。"; }
+        }
+
+        async function generatePost() {
+            const input = document.getElementById('ai-input-post').value.trim();
+            if (!input) return;
+            const btn = event.currentTarget;
+            btn.disabled = true; btn.innerText = "生成中...";
+            const result = await callGemini(`寫一份公益貼文：${input}`);
+            const output = document.createElement('div');
+            output.className = "mt-6 bg-amber-50 p-8 rounded-3xl border-2 border-amber-100 text-2xl text-gray-700 italic";
+            output.innerText = result;
+            btn.parentElement.appendChild(output);
+            btn.disabled = false; btn.innerText = "✨ 生成貼文";
+        }
+
+        async function generateSlogans() {
+            const input = document.getElementById('ai-input-slogan').value.trim();
+            if (!input) return;
+            const btn = event.currentTarget;
+            btn.disabled = true; btn.innerText = "構思中...";
+            const result = await callGemini(`針對主題構思 3 個有力口的公益口號：${input}`);
+            const output = document.createElement('div');
+            output.className = "mt-6 bg-amber-50 p-8 rounded-3xl border-2 border-amber-100 text-2xl text-gray-700 italic";
+            output.innerText = result;
+            btn.parentElement.appendChild(output);
+            btn.disabled = false; btn.innerText = "✨ 生成口號";
+        }
+
+        updateSlide();
+    </script>
+</body>
+</html>
