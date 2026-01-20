@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>龍穎扶輪社：20260322偏鄉義診</title>
-    <!-- Tailwind CSS -->
+    <title>20260322 偏鄉義診｜龍穎扶輪社</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Noto Sans TC -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,554 +12,370 @@
             --rotary-gold: #F7A81B;
         }
         body {
-            background-color: #f4f7f9;
             font-family: 'Noto Sans TC', sans-serif;
-            overflow-x: hidden;
-            color: #1e293b;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
-
-        /* 視圖動畫 */
-        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .hero-gradient {
-            background: linear-gradient(135deg, #015498 0%, #003366 100%);
+            background: radial-gradient(circle at top left, rgba(247, 168, 27, 0.25), transparent 45%),
+                        linear-gradient(135deg, #013a68 0%, #015498 55%, #0b74c8 100%);
         }
-
-        /* 空間規劃藍框畫布 */
-        .blueprint-canvas {
-            background: #ffffff;
-            background-image: 
-                radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 24px 24px;
-            border: 4px solid var(--rotary-blue);
-            border-radius: 24px;
-            box-shadow: 
-                0 25px 50px -12px rgba(1, 84, 152, 0.15),
-                inset 0 0 60px rgba(0,0,0,0.02);
-            padding: 40px; /* 增加內距，避免邊緣元件被切到 */
-            position: relative;
-            min-height: 600px;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
-
-        .floor-view {
-            display: none;
-            flex-direction: column;
-            gap: 24px; /* 增加行距，讓標籤有空間 */
-            height: 100%;
-        }
-        .floor-view.active { display: flex; }
-
-        /* 中央動線跑道 */
-        .flow-corridor {
-            background: #f1f5f9;
-            border-radius: 99px;
-            border: 2px dashed #cbd5e1;
+        .section-title {
             display: flex;
             align-items: center;
-            justify-content: center;
-            height: 60px;
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0; /* 防止被壓縮 */
+            gap: 12px;
         }
-        
-        .flow-corridor::after {
-            content: "➔  ➔  ➔  ➔  ➔  ➔";
-            position: absolute;
-            color: #cbd5e1;
-            font-size: 14px;
-            font-weight: 900;
-            white-space: nowrap;
-            opacity: 0.5;
-            animation: moveArrows 10s linear infinite;
-        }
-        @keyframes moveArrows {
-            from { transform: translateX(-50%); }
-            to { transform: translateX(50%); }
-        }
-
-        /* 診間方塊 - 修正 overflow 問題 */
-        .clinic-pod {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            position: relative;
-            /* overflow: hidden;  <-- 移除這個導致文字被切掉的元兇 */
-            z-index: 10; /* 確保未 hover 時層級正確 */
-        }
-        .clinic-pod:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 30px -10px rgba(1, 84, 152, 0.2);
-            border-color: var(--rotary-blue);
-            z-index: 50; /* Hover 時浮起 */
-        }
-        
-        /* 狀態小燈號 */
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #22c55e;
-            border-radius: 50%;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            box-shadow: 0 0 8px #22c55e;
-            z-index: 20;
-        }
-
-        /* 核心樞紐 */
-        .hub-pod {
-            background: linear-gradient(135deg, #F7A81B 0%, #f59e0b 100%);
-            border: 2px solid #ffffff;
-            outline: 2px solid #F7A81B;
-            border-radius: 20px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 15px 25px -5px rgba(247, 168, 27, 0.4);
-            position: relative;
-            z-index: 10;
-        }
-        .hub-pod:hover {
-            transform: scale(1.05);
-            z-index: 50;
-        }
-
-        /* 呼吸燈動畫 */
-        .pulse-ring {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 20px;
-            border: 2px solid #F7A81B;
-            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-            z-index: -1;
-        }
-        @keyframes pulse-ring {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.15); opacity: 0; }
-        }
-
-        .outdoor-buffer {
-            background: linear-gradient(to bottom right, #f8fafc, #f1f5f9);
-            border: 2px dashed #94a3b8;
-            border-radius: 24px;
-            padding: 24px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        .outdoor-buffer:hover {
-            background: #eff6ff;
-            border-color: var(--rotary-blue);
-        }
-
-        .active-ring {
-            outline: 4px solid var(--rotary-blue);
-            outline-offset: 2px;
-        }
-
-        /* 修正標籤位置與層級 */
-        .member-badge {
-            background: var(--rotary-blue);
-            color: white;
-            font-size: 10px; /*稍微放大字體*/
-            padding: 3px 10px;
-            border-radius: 99px;
-            font-weight: 800;
-            position: absolute;
-            top: -10px; /* 往上移，但不被裁切 */
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-            white-space: nowrap;
-            z-index: 30; /* 最高層級 */
-            border: 1px solid white;
-        }
-
-        .step-badge {
-            background: #ef4444;
-            color: white;
-            font-size: 11px;
-            padding: 3px 10px;
-            border-radius: 4px;
-            position: absolute;
-            top: -12px;
-            left: 8px;
-            font-weight: 900;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            transform: rotate(-5deg);
-            z-index: 30; /* 最高層級 */
-            border: 1px solid white;
-            white-space: nowrap;
-        }
-
-        .tab-btn {
-            background: #f1f5f9;
-            color: #64748b;
-            transition: all 0.3s;
-        }
-        .tab-btn.active {
-            background: var(--rotary-blue);
-            color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        
-        .team-card {
-            background: white;
+        .section-title span {
+            width: 42px;
+            height: 42px;
             border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
-        }
-        .team-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--rotary-gold);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(1, 84, 152, 0.12);
+            color: var(--rotary-blue);
+            font-weight: 700;
         }
     </style>
 </head>
 <body class="antialiased">
-
-    <!-- 第一部分：首頁 -->
     <div id="home-view" class="min-h-screen flex flex-col">
-        <!-- 英雄區 (Hero Section) -->
-        <section class="hero-gradient text-white py-20 px-6 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-blue-400 opacity-10 rounded-full -mr-48 -mt-48"></div>
-            <div class="max-w-6xl mx-auto relative z-10 fade-in">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-                        <span class="text-blue-900 font-black text-xl">龍</span>
+        <header class="hero-gradient text-white flex-grow">
+            <nav class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-white/95 text-blue-900 font-black flex items-center justify-center text-xl shadow">
+                        龍
                     </div>
-                    <span class="text-sm font-bold tracking-[0.3em] uppercase opacity-80">2026 龍穎扶輪社：羅浮里義診</span>
-                </div>
-                
-                <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
-                    醫療無界<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">服務無邊</span>
-                </h1>
-                
-                <p class="text-xl md:text-2xl text-blue-100 max-w-3xl leading-relaxed mb-10">
-                    結合頂尖專科醫師與熱血志工團隊，<br>
-                    從 3 樓的專業診治到 1 樓的溫暖關懷，為部落帶來最完整的健康守護。
-                </p>
-
-                <button onclick="switchView('layout')" class="bg-[#F7A81B] text-blue-900 font-black px-12 py-4 rounded-full text-lg shadow-2xl flex items-center gap-3 hover:scale-105 transition-all transform hover:shadow-orange-300/50">
-                    查看場域配置圖 (1F & 3F) <span>→</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- 團隊介紹區 (Team Section) -->
-        <section class="py-16 bg-white px-6">
-            <div class="max-w-6xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-slate-100 pb-4">
                     <div>
-                        <h2 class="text-3xl font-black text-slate-800">此次義診黃金陣容</h2>
-                        <p class="text-slate-500 mt-2">匯集多方專業資源，打造全方位醫療服務</p>
-                    </div>
-                    <span class="text-xs font-bold bg-blue-50 text-blue-600 px-3 py-1 rounded-full mt-4 md:mt-0">社友強力支援</span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- 醫療組 -->
-                    <div class="team-card border-l-4 border-emerald-500">
-                        <div class="text-2xl mb-2">🩺</div>
-                        <h4 class="font-black text-lg text-slate-800">家醫科</h4>
-                        <p class="text-sm font-bold text-slate-500 mt-1">陳昶馗 醫師</p>
-                        <p class="text-xs text-slate-400 mt-2">全人健康評估</p>
-                    </div>
-
-                    <div class="team-card border-l-4 border-violet-500">
-                        <div class="text-2xl mb-2">👂</div>
-                        <h4 class="font-black text-lg text-slate-800">耳鼻喉科</h4>
-                        <p class="text-sm font-bold text-slate-500 mt-1">國泰醫院團隊</p>
-                        <p class="text-xs text-slate-400 mt-2">專業內視鏡檢查</p>
-                    </div>
-
-                    <div class="team-card border-l-4 border-orange-500">
-                        <div class="text-2xl mb-2">🦴</div>
-                        <h4 class="font-black text-lg text-slate-800">骨科</h4>
-                        <p class="text-sm font-bold text-slate-500 mt-1">黃煜博醫師 <span class="text-[10px] bg-blue-100 text-blue-700 px-1 rounded">社友</span></p>
-                        <p class="text-xs text-slate-400 mt-2">骨骼與關節照護</p>
-                    </div>
-
-                    <div class="team-card border-l-4 border-emerald-600">
-                        <div class="text-2xl mb-2">🌿</div>
-                        <h4 class="font-black text-lg text-slate-800">中醫專科</h4>
-                        <p class="text-sm font-bold text-slate-500 mt-1">Amber 醫師 <span class="text-[10px] bg-blue-100 text-blue-700 px-1 rounded">社友</span></p>
-                        <p class="text-xs text-slate-400 mt-2">針灸與體質調理</p>
-                    </div>
-
-                    <div class="team-card border-l-4 border-cyan-500">
-                        <div class="text-2xl mb-2">🦷</div>
-                        <h4 class="font-black text-lg text-slate-800">牙科</h4>
-                        <p class="text-sm font-bold text-slate-500 mt-1">龍哥 醫師 <span class="text-[10px] bg-blue-100 text-blue-700 px-1 rounded">社友</span></p>
-                        <p class="text-xs text-slate-400 mt-2">口腔保健服務</p>
-                    </div>
-
-                    <div class="team-card border-l-4 border-blue-500">
-                        <div class="text-2xl mb-2">✨</div>
-                        <h4 class="font-black text-lg text-slate-800">皮膚醫美</h4>
-                        <p class="text-sm font-bold text-slate-500 mt-1">陳昱璁 醫師/Olvia 醫師 <span class="text-[10px] bg-blue-100 text-blue-700 px-1 rounded">社友</span></p>
-                        <p class="text-xs text-slate-400 mt-2">皮膚診斷諮詢</p>
-                    </div>
-
-                     <div class="team-card border-l-4 border-blue-400">
-                        <div class="text-2xl mb-2">💧</div>
-                        <h4 class="font-black text-lg text-slate-800">腎臟科</h4>
-                        <p class="text-sm font-bold text-slate-500 mt-1">專業醫師</p>
-                        <p class="text-xs text-slate-400 mt-2">腎臟功能評估</p>
-                    </div>
-
-                    <!-- 生活組 -->
-                    <div class="team-card border-l-4 border-amber-500 bg-amber-50/50">
-                        <div class="text-2xl mb-2">✂️</div>
-                        <h4 class="font-black text-lg text-slate-800">生活服務組</h4>
-                        <p class="text-sm font-bold text-slate-500 mt-1">義剪/攝影/志工</p>
-                        <p class="text-xs text-slate-400 mt-2">暖心理髮與接待</p>
+                        <p class="text-xs tracking-[0.35em] uppercase opacity-80">Lung-Ying Rotary</p>
+                        <h1 class="text-lg font-bold">20260322 偏鄉義診</h1>
                     </div>
                 </div>
+                <span class="hidden md:inline-flex text-sm font-semibold text-yellow-200">義診活動首頁</span>
+            </nav>
+
+            <section class="max-w-6xl mx-auto px-6 pt-10 pb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-sm font-semibold text-yellow-200 mb-4">2026.03.22｜羅浮里部落義診行動</p>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6">
+                        這裡是義診首頁，
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-100">點進去就是完整義診資訊</span>
+                    </h2>
+                    <p class="text-lg text-blue-100 leading-relaxed mb-8">
+                        首頁只做導覽與入口。點擊下方按鈕即可進入義診資訊，
+                        包含服務項目、流程安排、醫療團隊與聯絡方式。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="switchView('info')" class="bg-[#F7A81B] text-blue-900 font-bold px-8 py-3 rounded-full shadow-lg hover:scale-105 transition">
+                            進入義診資訊
+                        </button>
+                        <a href="#summary" class="bg-white/15 border border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/25 transition">先看快速摘要</a>
+                    </div>
+                </div>
+                <div class="relative" id="summary">
+                    <div class="absolute -top-6 -left-6 w-28 h-28 bg-yellow-300/30 rounded-full blur-2xl"></div>
+                    <div class="glass-card rounded-3xl p-6 shadow-2xl">
+                        <p class="text-sm font-bold text-blue-700">義診快速摘要</p>
+                        <div class="mt-5 grid gap-4 text-sm text-slate-700">
+                            <div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+                                <span>服務地點</span>
+                                <span class="font-semibold text-slate-900">羅浮里社區活動中心</span>
+                            </div>
+                            <div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+                                <span>服務時間</span>
+                                <span class="font-semibold text-slate-900">08:00 - 16:00</span>
+                            </div>
+                            <div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+                                <span>服務科別</span>
+                                <span class="font-semibold text-slate-900">家醫/牙科/中醫等</span>
+                            </div>
+                            <div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+                                <span>志工支援</span>
+                                <span class="font-semibold text-slate-900">70+ 位協助</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </header>
+        <footer class="bg-slate-900 text-slate-300 py-6">
+            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm">© 2026 龍穎扶輪社 Lung-Ying Rotary Club</p>
+                <p class="text-xs tracking-[0.3em] uppercase">20260322 義診行動</p>
             </div>
-        </section>
-
-        <footer class="py-8 bg-slate-900 text-white text-center">
-            <p class="text-sm opacity-50 tracking-widest">龍穎扶輪社 公共形象委員 監製</p>
         </footer>
     </div>
 
-    <!-- 第二部分：場域規劃 -->
-    <div id="layout-view" class="hidden min-h-screen p-4 md:p-8 fade-in">
-        <div class="max-w-7xl mx-auto mb-6 flex justify-between items-center">
-            <button onclick="switchView('home')" class="text-blue-900 font-bold hover:underline flex items-center gap-2">
-                <span>←</span> 返回首頁
-            </button>
-            <div class="flex bg-slate-200 p-1 rounded-full">
-                <button onclick="switchFloor(1)" id="floor-tab-1" class="tab-btn px-6 py-2 rounded-full font-bold text-sm">1F 騎樓與緩衝區</button>
-                <button onclick="switchFloor(3)" id="floor-tab-3" class="tab-btn active px-6 py-2 rounded-full font-bold text-sm">3F 專業醫療區</button>
-            </div>
-        </div>
-
-        <header class="max-w-7xl mx-auto mb-10">
-            <div class="bg-white p-8 rounded-[32px] shadow-sm border border-slate-100 flex flex-col lg:flex-row justify-between items-center gap-6">
-                <div>
-                    <h2 id="floor-indicator" class="text-xs font-black text-blue-900 tracking-widest uppercase mb-2">3F 專業醫療診區</h2>
-                    <h1 class="text-3xl font-black text-slate-800 tracking-tight">場域配置與醫療分佈</h1>
-                </div>
-                <div class="flex gap-10">
-                    <div class="text-center">
-                        <p class="text-[10px] text-slate-400 font-black uppercase mb-1">主要策略</p>
-                        <p id="zone-feature" class="text-lg font-black text-blue-700">3F 醫療中心化</p>
-                    </div>
-                </div>
+    <div id="info-view" class="hidden min-h-screen bg-slate-50">
+        <header class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+                <button onclick="switchView('home')" class="text-blue-900 font-semibold hover:underline flex items-center gap-2">
+                    <span>←</span> 返回首頁
+                </button>
+                <nav class="flex flex-wrap gap-6 text-sm font-semibold text-slate-600">
+                    <a href="#overview" class="hover:text-blue-700">活動概覽</a>
+                    <a href="#services" class="hover:text-blue-700">義診服務</a>
+                    <a href="#schedule" class="hover:text-blue-700">當日流程</a>
+                    <a href="#team" class="hover:text-blue-700">醫療團隊</a>
+                    <a href="#contact" class="hover:text-blue-700">聯絡方式</a>
+                </nav>
             </div>
         </header>
 
-        <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
-            <div class="lg:col-span-8">
-                <div class="blueprint-canvas">
-                    <!-- 3F 視圖 (優化動線版) -->
-                    <div id="view-floor-3" class="floor-view active">
-                        <!-- 第一排：報到入口與左側診間 -->
-                        <div class="flex gap-6 min-h-[144px]"> <!-- 使用 min-h 防止內容擠壓 -->
-                            <!-- 報到樞紐：獨立、醒目、入口 -->
-                            <div id="checkin3" class="hub-pod w-1/3" onclick="focusElement('checkin3')">
-                                <div class="pulse-ring"></div>
-                                <span class="step-badge">START Step 1</span>
-                                <div class="text-3xl mb-1">✅</div>
-                                <h3 class="font-black text-lg text-slate-900">報到領號處</h3>
-                                <p class="text-[10px] text-white font-bold bg-black/10 px-2 py-1 rounded mt-1">入口處優先報到</p>
-                            </div>
-
-                            <div class="flex-1 flex gap-4">
-                                <div id="fm" class="clinic-pod flex-1" onclick="focusElement('fm')">
-                                    <span class="status-dot"></span>
-                                    <div class="text-2xl text-emerald-500">🩺</div><p class="font-black text-sm mt-1">家醫科</p>
-                                </div>
-                                <div id="ent" class="clinic-pod flex-1" onclick="focusElement('ent')">
-                                    <span class="status-dot"></span>
-                                    <div class="text-2xl text-violet-500">👂</div><p class="font-black text-sm mt-1">耳鼻喉科</p>
-                                </div>
-                                <div id="neph" class="clinic-pod flex-1" onclick="focusElement('neph')">
-                                    <div class="text-2xl text-blue-500">💧</div><p class="font-black text-sm mt-1">腎臟科</p>
-                                </div>
-                            </div>
+        <main>
+            <section id="overview" class="py-20 bg-white">
+                <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="section-title mb-6">
+                            <span>01</span>
+                            <h3 class="text-3xl font-black text-slate-800">活動概覽</h3>
                         </div>
-
-                        <!-- 中央動線走廊 -->
-                        <div class="flow-corridor">
-                            <span class="relative z-10 text-[10px] font-black text-slate-500 tracking-[0.2em] bg-[#f1f5f9] px-4">核心醫療動線</span>
-                        </div>
-
-                        <!-- 第二排：其餘診間 -->
-                        <div class="flex gap-4 min-h-[144px]">
-                            <div id="skin" class="clinic-pod flex-1" onclick="focusElement('skin')">
-                                <span class="member-badge">社友</span>
-                                <div class="text-2xl text-cyan-600">✨</div><p class="font-black text-sm mt-1">皮膚醫美</p>
+                        <p class="text-lg text-slate-600 leading-relaxed mb-6">
+                            本次義診聚焦偏鄉醫療資源不足問題，提供跨科別診療、衛教與後續轉介。
+                            我們希望居民在一天內完成完整健康評估，並建立持續追蹤的連結。
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-blue-50 rounded-2xl p-4">
+                                <p class="text-xs font-bold text-blue-700">服務日期</p>
+                                <p class="text-lg font-black">2026/03/22</p>
                             </div>
-                            <div id="ortho" class="clinic-pod flex-1" onclick="focusElement('ortho')">
-                                <span class="member-badge">社友</span>
-                                <div class="text-2xl text-orange-500">🦴</div><p class="font-black text-sm mt-1">骨科</p>
+                            <div class="bg-amber-50 rounded-2xl p-4">
+                                <p class="text-xs font-bold text-amber-700">服務對象</p>
+                                <p class="text-lg font-black">羅浮里居民</p>
                             </div>
-                            <div id="tcm" class="clinic-pod flex-1" onclick="focusElement('tcm')">
-                                <span class="status-dot"></span>
-                                <span class="member-badge">社友</span>
-                                <div class="text-2xl text-emerald-600">🌿</div><p class="font-black text-sm mt-1">中醫</p>
+                            <div class="bg-emerald-50 rounded-2xl p-4">
+                                <p class="text-xs font-bold text-emerald-700">活動目標</p>
+                                <p class="text-lg font-black">全齡健康守護</p>
                             </div>
-                            <div id="dental" class="clinic-pod flex-1" onclick="focusElement('dental')">
-                                <span class="member-badge">社友</span>
-                                <div class="text-2xl text-blue-400">🦷</div><p class="font-black text-sm mt-1">牙科</p>
+                            <div class="bg-slate-50 rounded-2xl p-4">
+                                <p class="text-xs font-bold text-slate-600">後續追蹤</p>
+                                <p class="text-lg font-black">衛生所轉介</p>
                             </div>
                         </div>
                     </div>
+                    <div class="bg-slate-900 text-white rounded-3xl p-8 shadow-xl">
+                        <p class="text-xs uppercase tracking-[0.3em] text-slate-300">Location</p>
+                        <h4 class="text-2xl font-black mt-4">羅浮里社區活動中心</h4>
+                        <p class="text-sm text-slate-300 mt-2">桃園市復興區羅浮里 202</p>
+                        <div class="mt-8 space-y-4">
+                            <div class="flex items-start gap-3">
+                                <span class="text-yellow-300">●</span>
+                                <p class="text-sm text-slate-200">1F 接待與生活服務、3F 多科診療。</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-yellow-300">●</span>
+                                <p class="text-sm text-slate-200">現場志工協助分流與衛教。</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-yellow-300">●</span>
+                                <p class="text-sm text-slate-200">服務結束後提供後續轉介名單。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                    <!-- 1F 視圖 (維持不變，僅微調視覺) -->
-                    <div id="view-floor-1" class="floor-view">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-[10px] font-black bg-slate-900 text-white px-2 py-1 rounded">1 樓外部與騎樓</span>
+            <section id="services" class="py-20 bg-slate-50">
+                <div class="max-w-6xl mx-auto px-6">
+                    <div class="section-title mb-8">
+                        <span>02</span>
+                        <div>
+                            <h3 class="text-3xl font-black text-slate-800">義診服務</h3>
+                            <p class="text-slate-500 mt-2">當日提供的核心服務項目，皆與義診直接相關。</p>
                         </div>
-                        <div class="flex gap-6 min-h-[160px]">
-                            <div id="haircut" class="clinic-pod flex-1 bg-amber-50 border-amber-200" onclick="focusElement('haircut')">
-                                <div class="text-4xl mb-2">✂️</div>
-                                <h4 class="font-black text-slate-800">騎樓義剪區</h4>
-                                <p class="text-xs text-amber-600 mt-1 font-bold">理髮服務</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <p class="text-2xl mb-2">🩺</p>
+                            <h4 class="text-lg font-black text-slate-800">家醫與慢病評估</h4>
+                            <p class="text-sm text-slate-500 mt-2">血壓、血糖、慢性病追蹤與醫囑建議。</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <p class="text-2xl mb-2">🦷</p>
+                            <h4 class="text-lg font-black text-slate-800">口腔與牙科照護</h4>
+                            <p class="text-sm text-slate-500 mt-2">口腔檢查、衛教指導與基礎處理。</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <p class="text-2xl mb-2">🧘</p>
+                            <h4 class="text-lg font-black text-slate-800">中醫調理</h4>
+                            <p class="text-sm text-slate-500 mt-2">針灸、筋絡放鬆與生活型態建議。</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <p class="text-2xl mb-2">👂</p>
+                            <h4 class="text-lg font-black text-slate-800">耳鼻喉檢查</h4>
+                            <p class="text-sm text-slate-500 mt-2">耳鼻喉不適評估與轉介建議。</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <p class="text-2xl mb-2">🦴</p>
+                            <h4 class="text-lg font-black text-slate-800">骨科檢診</h4>
+                            <p class="text-sm text-slate-500 mt-2">關節與骨骼相關問題評估。</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <p class="text-2xl mb-2">✂️</p>
+                            <h4 class="text-lg font-black text-slate-800">生活服務支援</h4>
+                            <p class="text-sm text-slate-500 mt-2">義剪、健康補給與志工陪伴。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="schedule" class="py-20 bg-white">
+                <div class="max-w-6xl mx-auto px-6">
+                    <div class="section-title mb-8">
+                        <span>03</span>
+                        <div>
+                            <h3 class="text-3xl font-black text-slate-800">當日流程</h3>
+                            <p class="text-slate-500 mt-2">流程簡潔清楚，方便現場引導與分流。</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 bg-slate-50 rounded-2xl p-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">1</div>
+                                <div>
+                                    <p class="font-semibold">08:00 - 09:00 報到與量測</p>
+                                    <p class="text-sm text-slate-500">志工引導、建檔、血壓血糖測量</p>
+                                </div>
                             </div>
-                            <div id="guide1" class="hub-pod w-1/3 bg-blue-900 border-blue-800 text-white" onclick="focusElement('guide1')">
-                                <div class="text-3xl mb-1">🚩</div>
-                                <p class="font-black text-sm">分流引導站</p>
-                                <p class="text-[10px] mt-1 opacity-80 bg-white/20 px-2 py-0.5 rounded">醫療請上3F</p>
+                            <div class="flex items-center gap-4 bg-slate-50 rounded-2xl p-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">2</div>
+                                <div>
+                                    <p class="font-semibold">09:00 - 12:00 多科診療</p>
+                                    <p class="text-sm text-slate-500">家醫、牙科、中醫等科別同時進行</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 bg-slate-50 rounded-2xl p-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">3</div>
+                                <div>
+                                    <p class="font-semibold">12:00 - 13:00 衛教與補給</p>
+                                    <p class="text-sm text-slate-500">健康講座、補給品發放</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 bg-slate-50 rounded-2xl p-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">4</div>
+                                <div>
+                                    <p class="font-semibold">13:00 - 16:00 後續診療</p>
+                                    <p class="text-sm text-slate-500">轉介建議、紀錄與關懷</p>
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- 照片中的空地區域 (緩衝區) -->
-                        <div id="plaza" class="outdoor-buffer flex-1 mt-2 flex flex-col items-center justify-center cursor-pointer" onclick="focusElement('plaza')">
-                            <p class="text-4xl mb-3">🏟️</p>
-                            <h4 class="font-black text-xl text-blue-900">健康活動廣場</h4>
-                            <p class="text-xs text-slate-500 max-w-sm mt-2 leading-relaxed font-bold">
-                                奉茶 ‧ 休息 ‧ 形象展
+                        <div class="rounded-3xl border border-slate-200 p-8 shadow-sm">
+                            <h4 class="text-xl font-black text-slate-800">現場動線重點</h4>
+                            <ul class="mt-4 space-y-3 text-sm text-slate-600">
+                                <li>・一樓為報到、量測與生活服務支援區。</li>
+                                <li>・三樓為多科診療區，依序叫號。</li>
+                                <li>・志工分流協助，減少等待時間。</li>
+                                <li>・完成後提供衛教與後續轉介。</li>
+                            </ul>
+                            <div class="mt-6 bg-blue-50 rounded-2xl p-4 text-sm text-blue-700 font-semibold">
+                                若需要最新配置圖或動線細節，請與活動窗口聯繫。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="team" class="py-20 bg-slate-50">
+                <div class="max-w-6xl mx-auto px-6">
+                    <div class="section-title mb-8">
+                        <span>04</span>
+                        <div>
+                            <h3 class="text-3xl font-black text-slate-800">醫療團隊</h3>
+                            <p class="text-slate-500 mt-2">列出本次義診主要醫療支援人員。</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-black text-lg text-slate-800">家醫科</h4>
+                            <p class="text-sm text-slate-500 mt-1">陳昶馗 醫師</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-black text-lg text-slate-800">耳鼻喉科</h4>
+                            <p class="text-sm text-slate-500 mt-1">國泰醫院團隊</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-black text-lg text-slate-800">骨科</h4>
+                            <p class="text-sm text-slate-500 mt-1">黃煜博 醫師</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-black text-lg text-slate-800">中醫專科</h4>
+                            <p class="text-sm text-slate-500 mt-1">Amber 醫師</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-black text-lg text-slate-800">牙科</h4>
+                            <p class="text-sm text-slate-500 mt-1">龍哥 醫師</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-black text-lg text-slate-800">皮膚科</h4>
+                            <p class="text-sm text-slate-500 mt-1">陳昱璁／Olvia 醫師</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-black text-lg text-slate-800">腎臟科</h4>
+                            <p class="text-sm text-slate-500 mt-1">合作醫師</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-black text-lg text-slate-800">生活服務組</h4>
+                            <p class="text-sm text-slate-500 mt-1">義剪／攝影／志工</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="py-20 bg-white">
+                <div class="max-w-6xl mx-auto px-6">
+                    <div class="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-600 text-white rounded-3xl p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                        <div>
+                            <h3 class="text-3xl font-black mb-4">義診活動聯絡窗口</h3>
+                            <p class="text-blue-100 leading-relaxed">
+                                若要更新義診資訊、提供資源或加入志工行列，
+                                請直接與活動窗口聯絡，我們會回覆最新安排。
                             </p>
-                            <div class="flex gap-3 mt-6 flex-wrap justify-center">
-                                <span class="px-3 py-1 bg-white rounded-full text-[10px] font-bold shadow-sm text-slate-600">☕ 暖心奉茶</span>
-                                <span class="px-3 py-1 bg-white rounded-full text-[10px] font-bold shadow-sm text-slate-600">🏛️ 形象攝影</span>
-                                <span class="px-3 py-1 bg-white rounded-full text-[10px] font-bold shadow-sm text-slate-600">📸 公益拍照</span>
+                        </div>
+                        <div class="bg-white/10 rounded-2xl p-6">
+                            <p class="text-sm uppercase tracking-[0.3em] text-blue-100">Contact</p>
+                            <p class="text-lg font-bold mt-3">義診窗口｜大D</p>
+                            <p class="text-sm text-blue-100 mt-2">Email: publicimage@lungying.org</p>
+                            <p class="text-sm text-blue-100 mt-1">Phone: 02-1234-5678</p>
+                            <div class="mt-6 flex flex-wrap gap-3 text-xs">
+                                <span class="bg-white/15 px-3 py-1 rounded-full">志工招募</span>
+                                <span class="bg-white/15 px-3 py-1 rounded-full">醫療協作</span>
+                                <span class="bg-white/15 px-3 py-1 rounded-full">物資支持</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- 右側詳細說明內容 -->
-            <div class="lg:col-span-4">
-                <div id="detail-card" class="bg-white rounded-[40px] shadow-2xl p-10 border border-slate-100 min-h-[580px] flex flex-col relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-[100px] -mr-4 -mt-4 z-0"></div>
-                    
-                    <div id="empty-state" class="flex-1 flex flex-col items-center justify-center text-center relative z-10">
-                        <div class="w-24 h-24 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mb-8 text-4xl shadow-inner">🗺️</div>
-                        <h3 class="text-2xl font-black text-slate-800 mb-4">點擊探索場域</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed max-w-[200px]">點擊左側藍圖上的區塊，查看該站點的詳細配置。</p>
-                    </div>
-                    
-                    <div id="content-state" class="hidden relative z-10">
-                        <div class="flex items-center gap-5 mb-8">
-                            <div id="info-icon" class="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl text-white shadow-lg transition-colors duration-300"></div>
-                            <div>
-                                <h3 id="info-title" class="text-2xl font-black text-slate-800"></h3>
-                                <div id="info-doctor" class="text-xs font-bold text-slate-500 mt-2 bg-slate-100 inline-block px-2 py-1 rounded"></div>
-                            </div>
-                        </div>
-                        <div class="bg-slate-50 p-6 rounded-2xl mb-8 border border-slate-100">
-                            <p id="info-desc" class="text-slate-600 text-sm leading-7 font-medium"></p>
-                        </div>
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">硬體配備清單</h4>
-                        <div id="info-list" class="space-y-3"></div>
-                    </div>
-                </div>
-            </div>
+            </section>
         </main>
+
+        <footer class="bg-slate-900 text-slate-300 py-10">
+            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm">© 2026 龍穎扶輪社 Lung-Ying Rotary Club</p>
+                <p class="text-xs tracking-[0.3em] uppercase">20260322 義診行動</p>
+            </div>
+        </footer>
     </div>
 
     <script>
-        function switchView(view) {
-            document.getElementById('home-view').classList.toggle('hidden', view === 'layout');
-            document.getElementById('layout-view').classList.toggle('hidden', view === 'home');
-            window.scrollTo(0, 0);
-        }
+        function switchView(target) {
+            const homeView = document.getElementById('home-view');
+            const infoView = document.getElementById('info-view');
 
-        function switchFloor(floor) {
-            document.getElementById('view-floor-1').classList.toggle('active', floor === 1);
-            document.getElementById('view-floor-3').classList.toggle('active', floor === 3);
-            document.getElementById('floor-tab-1').classList.toggle('active', floor === 1);
-            document.getElementById('floor-tab-3').classList.toggle('active', floor === 3);
-            
-            const floorIndicator = document.getElementById('floor-indicator');
-            const zoneFeature = document.getElementById('zone-feature');
-            
-            if(floor === 1) {
-                floorIndicator.textContent = "1F 騎樓與緩衝活動區";
-                zoneFeature.textContent = "分流引導與社區生活";
-            } else {
-                floorIndicator.textContent = "3F 專業醫療核心區";
-                zoneFeature.textContent = "各科專科精準診治";
+            if (target === 'info') {
+                homeView.classList.add('hidden');
+                infoView.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
             }
-            document.getElementById('empty-state').classList.remove('hidden');
-            document.getElementById('content-state').classList.add('hidden');
-            document.querySelectorAll('.clinic-pod, .hub-pod, .outdoor-buffer').forEach(el => el.classList.remove('active-ring'));
-        }
 
-        const zoneData = {
-            // 3F 專業醫療數據
-            'fm': { title: '家醫科', doctor: '陳昶馗醫師', icon: '🩺', color: 'bg-emerald-500', desc: '全人健康評估與慢性病諮詢，是義診的核心。', items: ['診療桌椅', '血壓計', '聽診器'] },
-            'ent': { title: '耳鼻喉科', doctor: '國泰醫院團隊', icon: '👂', color: 'bg-violet-500', desc: '針對偏鄉長輩常見的耳鼻喉問題進行內視鏡檢查。', items: ['便攜式內視鏡', '洗耳機'] },
-            'neph': { title: '腎臟科', doctor: '專業醫師', icon: '💧', color: 'bg-blue-500', desc: '腎功能諮詢與三高健康衛教。', items: ['衛教文宣', '尿液試紙'] },
-            'skin': { title: '皮膚醫美', doctor: '陳昱璁/Olvia醫師社友', icon: '✨', color: 'bg-cyan-600', desc: '皮膚疾患診斷與自然醫學美學建議。', items: ['強光燈', '檢查床'] },
-            'ortho': { title: '骨科', doctor: '黃煜博醫師社友', icon: '🦴', color: 'bg-orange-500', desc: '針對關節退化與酸痛提供理學檢查與復健建議。', items: ['復健衛教單', '診療床'] },
-            'tcm': { title: '中醫專科', doctor: 'Amber醫師社友', icon: '🌿', color: 'bg-emerald-600', desc: '脈診、針灸與體質調理建議。', items: ['脈枕', '棄針瓶'] },
-            'dental': { title: '牙科門診', doctor: '龍哥醫師社友', icon: '🦷', color: 'bg-blue-400', desc: '口腔健康檢查與偏鄉牙醫資源引導。', items: ['行動牙醫台', '頭照燈'] },
-            'checkin3': { title: '3F 報到處', doctor: '醫療行政組', icon: '✅', color: 'bg-amber-500', desc: '【動線起點】正式掛號與領取號碼牌，確保診間人數控制。', items: ['號碼顯示器', '問卷表單'] },
-            
-            // 1F 生活與緩衝數據
-            'haircut': { title: '騎樓義剪區', doctor: '專業理髮師組', icon: '✂️', color: 'bg-amber-500', desc: '位於入口處，讓路過民眾先看到溫暖服務，提升心情。', items: ['理髮椅 3-4 組', '吸塵設備'] },
-            'guide1': { title: '入口分流站', doctor: '志工接待組', icon: '🚩', color: 'bg-blue-900', desc: '引導看診民眾直接上3樓報到，避免1樓人潮擁擠時民眾不知所措。', items: ['指示牌', '動線看板'] },
-            'plaza': { title: '健康活動廣場', doctor: '公共形象委員會', icon: '🏟️', color: 'bg-blue-400', desc: '照片中的空地空間，規劃為「健康驛站」，包含奉茶區、形象牆展示，並可作為陪同家屬的休息區。', items: ['露天座椅', '咖啡奉茶站', '扶輪形象展架'] }
-        };
-
-        function focusElement(id) {
-            const data = zoneData[id];
-            document.getElementById('empty-state').classList.add('hidden');
-            document.getElementById('content-state').classList.remove('hidden');
-            const iconBox = document.getElementById('info-icon');
-            iconBox.className = `w-20 h-20 rounded-3xl flex items-center justify-center text-4xl text-white shadow-lg ${data.color}`;
-            iconBox.textContent = data.icon;
-            document.getElementById('info-title').textContent = data.title;
-            document.getElementById('info-doctor').textContent = `負責單位：${data.doctor}`;
-            document.getElementById('info-desc').textContent = data.desc;
-            const list = document.getElementById('info-list');
-            list.innerHTML = data.items.map(item => `
-                <div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-100 text-xs font-bold text-slate-700 shadow-sm">
-                    <span class="w-2 h-2 rounded-full ${data.color}"></span>
-                    ${item}
-                </div>
-            `).join('');
-            document.querySelectorAll('.clinic-pod, .hub-pod, .outdoor-buffer').forEach(el => el.classList.remove('active-ring'));
-            document.getElementById(id).classList.add('active-ring');
+            infoView.classList.add('hidden');
+            homeView.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
-
 </html>
