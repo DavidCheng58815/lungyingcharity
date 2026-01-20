@@ -41,6 +41,21 @@
             color: var(--rotary-blue);
             font-weight: 700;
         }
+        .chip {
+            border-radius: 999px;
+            border: 1px solid #e2e8f0;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+        .chip.active {
+            background: #015498;
+            border-color: #015498;
+            color: #fff;
+            box-shadow: 0 8px 20px -10px rgba(1, 84, 152, 0.7);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -63,12 +78,11 @@
                 <div>
                     <p class="text-sm font-semibold text-yellow-200 mb-4">2026.03.22｜羅浮里部落義診行動</p>
                     <h2 class="text-4xl md:text-5xl font-black leading-tight mb-6">
-                        這裡是義診首頁，
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-100">點進去就是完整義診資訊</span>
+                        醫療無界・服務無邊，
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-100">讓每一位里民都能被照顧</span>
                     </h2>
                     <p class="text-lg text-blue-100 leading-relaxed mb-8">
-                        首頁只做導覽與入口。點擊下方按鈕即可進入義診資訊，
-                        包含服務項目、流程安排、醫療團隊與聯絡方式。
+                        這裡是義診活動首頁。點進去即可查看完整義診資訊，包括服務項目、流程安排、醫療團隊與聯絡方式。
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <button onclick="switchView('info')" class="bg-[#F7A81B] text-blue-900 font-bold px-8 py-3 rounded-full shadow-lg hover:scale-105 transition">
@@ -99,6 +113,9 @@
                                 <span class="font-semibold text-slate-900">70+ 位協助</span>
                             </div>
                         </div>
+                        <div class="mt-6 bg-blue-50 rounded-2xl p-4 text-sm text-blue-700 font-semibold">
+                            距離義診還有 <span id="countdown" class="text-blue-900 font-black"></span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -119,6 +136,7 @@
                 </button>
                 <nav class="flex flex-wrap gap-6 text-sm font-semibold text-slate-600">
                     <a href="#overview" class="hover:text-blue-700">活動概覽</a>
+                    <a href="#updates" class="hover:text-blue-700">最新消息</a>
                     <a href="#services" class="hover:text-blue-700">義診服務</a>
                     <a href="#schedule" class="hover:text-blue-700">當日流程</a>
                     <a href="#team" class="hover:text-blue-700">醫療團隊</a>
@@ -136,7 +154,7 @@
                             <h3 class="text-3xl font-black text-slate-800">活動概覽</h3>
                         </div>
                         <p class="text-lg text-slate-600 leading-relaxed mb-6">
-                            本次義診聚焦偏鄉醫療資源不足問題，提供跨科別診療、衛教與後續轉介。
+                            本次義診是年度旗艦服務行動，地點選在羅浮里社區活動中心，服務擴及三個里的里民。
                             我們希望居民在一天內完成完整健康評估，並建立持續追蹤的連結。
                         </p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
@@ -146,7 +164,7 @@
                             </div>
                             <div class="bg-amber-50 rounded-2xl p-4">
                                 <p class="text-xs font-bold text-amber-700">服務對象</p>
-                                <p class="text-lg font-black">羅浮里居民</p>
+                                <p class="text-lg font-black">羅浮里三里居民</p>
                             </div>
                             <div class="bg-emerald-50 rounded-2xl p-4">
                                 <p class="text-xs font-bold text-emerald-700">活動目標</p>
@@ -162,6 +180,9 @@
                         <p class="text-xs uppercase tracking-[0.3em] text-slate-300">Location</p>
                         <h4 class="text-2xl font-black mt-4">羅浮里社區活動中心</h4>
                         <p class="text-sm text-slate-300 mt-2">桃園市復興區羅浮里 202</p>
+                        <a href="https://maps.app.goo.gl/Jdd4FwyTxSTgBg2L8" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 mt-4 text-sm text-yellow-200 underline">
+                            開啟地圖導航 →
+                        </a>
                         <div class="mt-8 space-y-4">
                             <div class="flex items-start gap-3">
                                 <span class="text-yellow-300">●</span>
@@ -180,10 +201,24 @@
                 </div>
             </section>
 
-            <section id="services" class="py-20 bg-slate-50">
+            <section id="updates" class="py-20 bg-slate-50">
                 <div class="max-w-6xl mx-auto px-6">
                     <div class="section-title mb-8">
                         <span>02</span>
+                        <div>
+                            <h3 class="text-3xl font-black text-slate-800">最新消息</h3>
+                            <p class="text-slate-500 mt-2">此區塊可動態更新，後續新增公告時只需更新資料。</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mb-6" id="update-filters"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="updates-list"></div>
+                </div>
+            </section>
+
+            <section id="services" class="py-20 bg-white">
+                <div class="max-w-6xl mx-auto px-6">
+                    <div class="section-title mb-8">
+                        <span>03</span>
                         <div>
                             <h3 class="text-3xl font-black text-slate-800">義診服務</h3>
                             <p class="text-slate-500 mt-2">當日提供的核心服務項目，皆與義診直接相關。</p>
@@ -224,10 +259,10 @@
                 </div>
             </section>
 
-            <section id="schedule" class="py-20 bg-white">
+            <section id="schedule" class="py-20 bg-slate-50">
                 <div class="max-w-6xl mx-auto px-6">
                     <div class="section-title mb-8">
-                        <span>03</span>
+                        <span>04</span>
                         <div>
                             <h3 class="text-3xl font-black text-slate-800">當日流程</h3>
                             <p class="text-slate-500 mt-2">流程簡潔清楚，方便現場引導與分流。</p>
@@ -235,28 +270,28 @@
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                         <div class="space-y-4">
-                            <div class="flex items-center gap-4 bg-slate-50 rounded-2xl p-4">
+                            <div class="flex items-center gap-4 bg-white rounded-2xl p-4 shadow-sm">
                                 <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">1</div>
                                 <div>
                                     <p class="font-semibold">08:00 - 09:00 報到與量測</p>
                                     <p class="text-sm text-slate-500">志工引導、建檔、血壓血糖測量</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4 bg-slate-50 rounded-2xl p-4">
+                            <div class="flex items-center gap-4 bg-white rounded-2xl p-4 shadow-sm">
                                 <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">2</div>
                                 <div>
                                     <p class="font-semibold">09:00 - 12:00 多科診療</p>
                                     <p class="text-sm text-slate-500">家醫、牙科、中醫等科別同時進行</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4 bg-slate-50 rounded-2xl p-4">
+                            <div class="flex items-center gap-4 bg-white rounded-2xl p-4 shadow-sm">
                                 <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">3</div>
                                 <div>
                                     <p class="font-semibold">12:00 - 13:00 衛教與補給</p>
                                     <p class="text-sm text-slate-500">健康講座、補給品發放</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4 bg-slate-50 rounded-2xl p-4">
+                            <div class="flex items-center gap-4 bg-white rounded-2xl p-4 shadow-sm">
                                 <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">4</div>
                                 <div>
                                     <p class="font-semibold">13:00 - 16:00 後續診療</p>
@@ -264,7 +299,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="rounded-3xl border border-slate-200 p-8 shadow-sm">
+                        <div class="rounded-3xl border border-slate-200 p-8 shadow-sm bg-white">
                             <h4 class="text-xl font-black text-slate-800">現場動線重點</h4>
                             <ul class="mt-4 space-y-3 text-sm text-slate-600">
                                 <li>・一樓為報到、量測與生活服務支援區。</li>
@@ -280,10 +315,10 @@
                 </div>
             </section>
 
-            <section id="team" class="py-20 bg-slate-50">
+            <section id="team" class="py-20 bg-white">
                 <div class="max-w-6xl mx-auto px-6">
                     <div class="section-title mb-8">
-                        <span>04</span>
+                        <span>05</span>
                         <div>
                             <h3 class="text-3xl font-black text-slate-800">醫療團隊</h3>
                             <p class="text-slate-500 mt-2">列出本次義診主要醫療支援人員。</p>
@@ -326,7 +361,7 @@
                 </div>
             </section>
 
-            <section id="contact" class="py-20 bg-white">
+            <section id="contact" class="py-20 bg-slate-50">
                 <div class="max-w-6xl mx-auto px-6">
                     <div class="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-600 text-white rounded-3xl p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                         <div>
@@ -361,6 +396,95 @@
     </div>
 
     <script>
+        const updates = [
+            {
+                date: '2026/01/20',
+                tag: '公告',
+                title: '確認義診日期與地點',
+                detail: '地點為羅浮里社區活動中心，預計服務三個里民。'
+            },
+            {
+                date: '2026/02/05',
+                tag: '招募',
+                title: '志工招募開放中',
+                detail: '需要現場引導、量測與陪伴志工，歡迎報名。'
+            },
+            {
+                date: '2026/02/20',
+                tag: '醫療',
+                title: '多科別醫師排班確認',
+                detail: '家醫、牙科、中醫、骨科等科別完成排班。'
+            },
+            {
+                date: '2026/03/10',
+                tag: '公告',
+                title: '動線與分流公布',
+                detail: '一樓報到與生活服務，三樓多科診療，採叫號制。'
+            },
+            {
+                date: '2026/03/18',
+                tag: '媒體',
+                title: '活動當日影像紀錄提醒',
+                detail: '請志工協助拍攝與訪談，留下義診紀錄。'
+            }
+        ];
+
+        const tags = ['全部', ...new Set(updates.map((item) => item.tag))];
+        const updatesList = document.getElementById('updates-list');
+        const updatesFilters = document.getElementById('update-filters');
+
+        function renderUpdates(filterTag = '全部') {
+            updatesList.innerHTML = '';
+            const filtered = filterTag === '全部'
+                ? updates
+                : updates.filter((item) => item.tag === filterTag);
+
+            filtered.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl p-6 shadow-sm border border-slate-100';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between text-xs text-slate-400 font-semibold">
+                        <span>${item.date}</span>
+                        <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700">${item.tag}</span>
+                    </div>
+                    <h4 class="text-lg font-black text-slate-800 mt-4">${item.title}</h4>
+                    <p class="text-sm text-slate-500 mt-2">${item.detail}</p>
+                `;
+                updatesList.appendChild(card);
+            });
+        }
+
+        function renderFilters(activeTag = '全部') {
+            updatesFilters.innerHTML = '';
+            tags.forEach((tag) => {
+                const button = document.createElement('button');
+                button.className = `chip ${tag === activeTag ? 'active' : ''}`;
+                button.textContent = tag;
+                button.addEventListener('click', () => {
+                    renderFilters(tag);
+                    renderUpdates(tag);
+                });
+                updatesFilters.appendChild(button);
+            });
+        }
+
+        function updateCountdown() {
+            const countdownEl = document.getElementById('countdown');
+            if (!countdownEl) {
+                return;
+            }
+            const eventDate = new Date('2026-03-22T08:00:00+08:00');
+            const now = new Date();
+            const diff = eventDate - now;
+            if (diff <= 0) {
+                countdownEl.textContent = '今天就是義診日';
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            countdownEl.textContent = `${days} 天 ${hours} 小時`;
+        }
+
         function switchView(target) {
             const homeView = document.getElementById('home-view');
             const infoView = document.getElementById('info-view');
@@ -376,6 +500,11 @@
             homeView.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        renderFilters();
+        renderUpdates();
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
     </script>
 </body>
 </html>
