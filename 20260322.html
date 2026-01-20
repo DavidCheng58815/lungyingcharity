@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Noto Sans TC -->
-    <link href="https://fonts.googleapis.com/css2?family=NotoSansTC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --rotary-blue: #015498;
@@ -312,7 +312,7 @@
                         </div>
                         <div class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
                             <span>志工支援</span>
-                            <span class="font-semibold text-slate-900">70 位協助</span>
+                            <span class="font-semibold text-slate-900">70+ 位協助</span>
                         </div>
                     </div>
                     <div class="mt-6 border-t border-slate-200 pt-4 text-xs text-slate-500 space-y-2">
@@ -331,6 +331,11 @@
         <section class="hero-gradient text-white py-20 px-6 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-96 h-96 bg-blue-400 opacity-10 rounded-full -mr-48 -mt-48"></div>
             <div class="max-w-6xl mx-auto relative z-10 fade-in">
+                <div class="flex justify-end mb-6">
+                    <button onclick="backToCover()" class="text-xs font-semibold text-white/80 hover:text-white border border-white/30 px-3 py-1 rounded-full transition">
+                        回到封面
+                    </button>
+                </div>
                 <div class="flex items-center gap-4 mb-6">
                     <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
                         <span class="text-blue-900 font-black text-xl">龍</span>
@@ -359,7 +364,14 @@
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-slate-100 pb-4">
                     <div>
-                        <h2 class="text-3xl font-black text-slate-800">此次義診黃金陣容</h2>
+                        <h2 class="text-3xl font-black text-slate-800 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 4a4 4 0 014 4c0 1.48-.8 2.77-2 3.46V20a2 2 0 01-4 0v-8.54A3.98 3.98 0 018 8a4 4 0 014-4zm0-2a6 6 0 016 6c0 2.06-1.04 3.88-2.62 4.96V20a4 4 0 01-8 0v-7.04A5.98 5.98 0 016 8a6 6 0 016-6z"/>
+                                </svg>
+                            </span>
+                            此次義診黃金陣容
+                        </h2>
                         <p class="text-slate-500 mt-2">匯集多方專業資源，打造全方位醫療服務</p>
                     </div>
                     <span class="text-xs font-bold bg-blue-50 text-blue-600 px-3 py-1 rounded-full mt-4 md:mt-0">社友強力支援</span>
@@ -438,6 +450,9 @@
             <button onclick="switchView('home')" class="text-blue-900 font-bold hover:underline flex items-center gap-2">
                 <span>←</span> 返回首頁
             </button>
+            <button onclick="backToCover()" class="text-xs font-semibold text-slate-500 hover:text-blue-900 border border-slate-200 px-3 py-1 rounded-full transition">
+                回到封面
+            </button>
             <div class="flex bg-slate-200 p-1 rounded-full">
                 <button onclick="switchFloor(1)" id="floor-tab-1" class="tab-btn px-6 py-2 rounded-full font-bold text-sm">1F 騎樓與緩衝區</button>
                 <button onclick="switchFloor(3)" id="floor-tab-3" class="tab-btn active px-6 py-2 rounded-full font-bold text-sm">3F 專業醫療區</button>
@@ -448,7 +463,14 @@
             <div class="bg-white p-8 rounded-[32px] shadow-sm border border-slate-100 flex flex-col lg:flex-row justify-between items-center gap-6">
                 <div>
                     <h2 id="floor-indicator" class="text-xs font-black text-blue-900 tracking-widest uppercase mb-2">3F 專業醫療診區</h2>
-                    <h1 class="text-3xl font-black text-slate-800 tracking-tight">場域配置與醫療分佈</h1>
+                    <h1 class="text-3xl font-black text-slate-800 tracking-tight flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M12 3l9 7-1.2 1.6L12 5.5 4.2 11.6 3 10l9-7zm-5 8h10a2 2 0 012 2v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6a2 2 0 012-2zm2 2v6h6v-6H9z"/>
+                            </svg>
+                        </span>
+                        場域配置與醫療分佈
+                    </h1>
                 </div>
                 <div class="flex gap-10">
                     <div class="text-center">
@@ -593,6 +615,13 @@
             document.getElementById('cover-view').classList.add('hidden');
             document.getElementById('home-view').classList.toggle('hidden', view === 'layout');
             document.getElementById('layout-view').classList.toggle('hidden', view === 'home');
+            window.scrollTo(0, 0);
+        }
+
+        function backToCover() {
+            document.getElementById('cover-view').classList.remove('hidden');
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('layout-view').classList.add('hidden');
             window.scrollTo(0, 0);
         }
 
